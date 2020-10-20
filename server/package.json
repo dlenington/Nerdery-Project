@@ -1,0 +1,19 @@
+{
+  "name": "nat-server",
+  "version": "2.0.0",
+  "description": "Nerdery Frontend NAT development server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "The Nerdery",
+  "license": "none",
+  "dependencies": {
+    "hapi": "^17.5.3",
+    "hapi-auth-bearer-token": "^6.0.1",
+    "inert": "^5.1.0",
+    "joi": "^13.6.0",
+    "lodash.findwhere": "^3.1.0"
+  }
+}
