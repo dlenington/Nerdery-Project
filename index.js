@@ -112,7 +112,7 @@ const createSelectedListItem = (item) => {
  const listItem = document.createElement('li');
 
  const tableRow = document.createElement('div');
- tableRow.className = "table-row-light";
+ tableRow.className = "table-row-no-bg-color";
 
  const textContainer = document.createElement('div');
  textContainer.className = "row-text-container";
