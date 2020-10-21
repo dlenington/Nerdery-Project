@@ -39,9 +39,16 @@ const handleClick = (item) => {
     renderSelectedItems();
 }
 
-const createIcon = () => {
+const createIconButton = (item, index) => {
+    const button = document.createElement("button");
+    button.className = "table-button";
+    button.onclick = function(){
+        handleClick(item);
+    };
+
     const rowIcon = document.createElement("div");
     rowIcon.className = "row-icon";
+    rowIcon.className = index % 2 === 0 ? "row-icon-dark" : "row-icon-light";
 
     const crossIcon = document.createElement("div");
     crossIcon.className = "cross-add-icon";
@@ -51,8 +58,11 @@ const createIcon = () => {
 
     crossIcon.append(crossIconHorizontal);
     rowIcon.append(crossIcon);
-
-    return rowIcon;
+    button.append(rowIcon);
+    
+    
+        
+    return button;
 }
 
 const createTextContainer = (item) => {
@@ -72,11 +82,14 @@ const createTextContainer = (item) => {
 
     return rowTextContainer;
 }
-const createTableRow = (item) => {
-    const tableRow = document.createElement('div');
-    tableRow.className = "table-row";
 
-    const rowIcon = createIcon(item);
+const createTableRow = (item, index) => {
+    const tableRow = document.createElement('div');
+
+    // tableRow.className = "table-row";
+    tableRow.className = index % 2 === 0 ? "table-row" : "table-row-light";
+
+    const rowIcon = createIconButton(item, index);
     const rowTextContainer = createTextContainer(item);
 
     tableRow.append(rowIcon);
@@ -85,10 +98,10 @@ const createTableRow = (item) => {
     return tableRow;
 }
 
-const createListItem = (item) => {
+const createListItem = (item, index) => {
     const listItem = document.createElement('li');
 
-    const tableRow = createTableRow(item);
+    const tableRow = createTableRow(item, index);
 
     listItem.append(tableRow);
     return listItem;
@@ -122,12 +135,11 @@ const createSelectedListItem = (item) => {
 }
 
 const appendToDOM = (items) => {
-    // const table = document.querySelector('ul');
     const list = $("#available-items-list");
     console.log(list);
 
-    items.map(item => {
-        list.append(createListItem(item));
+    items.map((item, index) => {
+        list.append(createListItem(item, index));
     });
 }
 
@@ -165,7 +177,7 @@ const fetchAvailableItems = async () => {
         appendToDOM(items);
     }
     catch (err) {
-        alert("Please try again later. We are experiencing server issues.");
+        alert("Web maintentance in progress. Please try again later.");
         console.log(err);
     }
 
