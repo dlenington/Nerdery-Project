@@ -40,9 +40,6 @@ const handleClick = (item) => {
     setUserVoteCount();
     setItemVoteCount(item);
     setRemainingVotes();
-
-    console.log(selectedItems);
-
     selectedItems.push(item);
     renderSelectedItems();
 }
@@ -68,8 +65,6 @@ const createIconButton = (item, index) => {
     rowIcon.append(crossIcon);
     button.append(rowIcon);
     
-    
-        
     return button;
 }
 
@@ -94,8 +89,6 @@ const createTextContainer = (item) => {
 
 const createTableRow = (item, index) => {
     const tableRow = document.createElement('div');
-
-    // tableRow.className = "table-row";
     tableRow.className = index % 2 === 0 ? "table-row" : "table-row-light";
 
     const rowIcon = createIconButton(item, index);
@@ -109,7 +102,6 @@ const createTableRow = (item, index) => {
 
 const createListItem = (item, index) => {
     const listItem = document.createElement('li');
-
     const tableRow = createTableRow(item, index);
 
     listItem.append(tableRow);
@@ -162,7 +154,6 @@ const renderSelectedItems = () => {
     selectedItemsCount.textContent = `${selectedItems.length}`;
 
     sortAlphaNum(selectedItems);
-    console.log(selectedItems);
 
     selectedItems.map(item => {
         selectedItemsList.append(createSelectedListItem(item));
