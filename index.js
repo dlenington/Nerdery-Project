@@ -22,7 +22,6 @@ const setUserVoteCount = () => {
 
 const setItemVoteCount = (item) => {
     const countLabel = document.getElementById(`count-label-${item.id}`);
-    console.log(countLabel);
    const newVoteCount = parseInt(countLabel.textContent) + 1;
    countLabel.textContent = newVoteCount.toString();
 }
@@ -140,6 +139,9 @@ const appendToDOM = (items) => {
     const list = $("#available-items-list");
     console.log(list);
 
+    const availableItemsLabel = document.getElementById("available-items-label");
+    availableItemsLabel.textContent = items.length;
+
     items.map((item, index) => {
         list.append(createListItem(item, index));
     });
@@ -175,6 +177,7 @@ const fetchAvailableItems = async () => {
         const items = response.data;
         console.log(items);
         sortItemsByVoteDesc(items);
+        
         appendToDOM(items);
     }
     catch (err) {
