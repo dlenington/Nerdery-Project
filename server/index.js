@@ -19,7 +19,6 @@ const server = Hapi.server({
 const init = async () => {
   await server.register(AuthBearer);
   await server.register(Inert);
-console.log("hello");
   require('./auth')(server, CONFIG);
   require('./routes/snacks')(server, CONFIG);
   require('./routes/images')(server, CONFIG);
