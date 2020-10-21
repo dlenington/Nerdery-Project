@@ -8,7 +8,7 @@ const setRemainingVotes = () => {
     countLabel.textContent = `${newCount} Votes Remaining`;
 }
 
-const setVoteCount = () => {
+const setUserVoteCount = () => {
     var newCount = 0;
     if(localStorage.getItem("voteCount") !== null){
     console.log(parseInt(localStorage.getItem("voteCount")));
@@ -18,6 +18,13 @@ const setVoteCount = () => {
     newCount = 1;
     
     localStorage.setItem("voteCount", newCount.toString());
+}
+
+const setItemVoteCount = (item) => {
+    const countLabel = document.getElementById(`count-label-${item.id}`);
+    console.log(countLabel);
+   const newVoteCount = parseInt(countLabel.textContent) + 1;
+   countLabel.textContent = newVoteCount.toString();
 }
  
 const handleClick = (item) => {
@@ -30,7 +37,8 @@ const handleClick = (item) => {
     if(selectedItems.find(element => element.id === item.id))
     return;
 
-    setVoteCount();
+    setUserVoteCount();
+    setItemVoteCount(item);
     setRemainingVotes();
 
     console.log(selectedItems);
@@ -76,6 +84,7 @@ const createTextContainer = (item) => {
     const rowCount = document.createElement('div');
     rowCount.textContent = `${item.votes}`;
     rowCount.className = "count-label-dark";
+    rowCount.setAttribute("id", `count-label-${item.id}`);
 
     rowTextContainer.append(rowLabel);
     rowTextContainer.append(rowCount);
@@ -121,8 +130,9 @@ const createSelectedListItem = (item) => {
  rowLabel.className = "hdg_4 row-label";
 
  const countLabel = document.createElement('div');
- countLabel.textContent = `${item.votes}`;
+ countLabel.textContent = `${item.votes + 1}`;
  countLabel.className = "count-label-dark";
+ 
 
  textContainer.append(rowLabel);
  textContainer.append(countLabel);
