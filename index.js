@@ -20,11 +20,27 @@ const setUserVoteCount = () => {
     localStorage.setItem("voteCount", newCount.toString());
 }
 
-const setItemVoteCount = (item) => {
-    const countLabel = document.getElementById(`count-label-${item.id}`);
-   const newVoteCount = parseInt(countLabel.textContent) + 1;
-   countLabel.textContent = newVoteCount.toString();
+const updateItemVotes = async (item) => {
+    try {
+        console.log("entered");
+        const headers = {headers: {'Authorization': 'Bearer 33b55673-57c7-413f-83ed-5b4ae8d18827'}}
+        const response = await axios.post(`http://localhost:3000/snacks/vote/${item.id}`, {}, headers);
+        return response.data.votes;
+    } catch (error) {
+        console.log("Error updating item count on server", error);
+    }
 }
+
+const setItemVoteCount = async (item) => {
+    const updatedCount = await updateItemVotes(item);
+    
+    const countLabel = document.getElementById(`count-label-${item.id}`);
+//    const newVoteCount = parseInt(countLabel.textContent) + 1;
+   countLabel.textContent = updatedCount.toString();
+
+}
+
+
  
 const handleClick = (item) => {
     console.log(item);
